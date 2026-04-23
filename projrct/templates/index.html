@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register & Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4ffec9, #00f2fe);
+        }
+
+        /* Container */
+        .container {
+            width: 320px;
+            padding: 25px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: #fff;
+        }
+
+        /* Title */
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        /* Inputs */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        /* OR text */
+        .or {
+            margin: 15px 0;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Icons */
+        .icons i {
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .icons i:hover {
+            transform: scale(1.2);
+            color: #000;
+        }
+
+        /* Links section */
+        .links {
+            margin-top: 15px;
+        }
+
+        .links p {
+            margin-bottom: 8px;
+        }
+
+        /* Button */
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #fff;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="signup" style="display:none;">
+        <h1 class="form-title">Register</h1>
+
+        <p class="or">
+            ----------or--------
+        </p>
+        <div class="icons">
+            <i class="fab fa-google"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+        <div class="links">
+            <p>Already Have Account ?</p>
+            <button id="signInButton">Sign In</button>
+        </div>
+    </div>
+
+    <div class="container" id="signIn">
+        <h1 class="form-title">Sign In</h1>
+        <input type="text" placeholder="Firstname" id="name">
+        <input type="text" placeholder="username" id="username">
+        <input type="password" placeholder="password" id="password">
+        <button onclick="send()">Sign Up</button>
+        <p class="or">
+            ----------or--------
+        </p>
+        <div class="icons">
+            <i class="fab fa-google"></i>
+            <i class="fab fa-facebook"></i>
+        </div>
+        <div class="links">
+            <p>Don't have account yet?</p>
+
+        </div>
+    </div>
+</body>
+<script>
+    function send() {
+        let username = document.getElementById("username").value
+        let password = document.getElementById("password").value
+        let name = document.getElementById("name").value
+        alert("done")
+        fetch("/signup", {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                username: username,
+                pass: password
+            })
+        })
+    }
+
+</script>
+
+</html>

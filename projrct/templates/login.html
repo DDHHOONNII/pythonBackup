@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            border-color: #4facfe;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background: #4facfe;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background: #00c6ff;
+        }
+
+        .extra {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .extra a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <div class="input-group">
+                <label>Username</label>
+                <input type="text" placeholder="Enter name" required id="username">
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password" required id="password">
+            </div>
+
+            <button class="login-btn" onclick="send()">Login</button>
+
+            <div class="extra">
+                <button class="login-btn" onclick="change()">cretae</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+<script>
+    function change(){
+        window.location.href="/pagechange"
+    }
+    function send() {
+        let username = document.getElementById("username").value
+        let password = document.getElementById("password").value
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({
+                username: username,
+                pass: password
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.is_exist) {
+                    if (data.status) {
+                        window.location.href="/welcome"
+                    } else {
+                        alert("Invalid Details")
+                    }
+                } else {
+                    alert("user does't exist...")
+                }
+
+
+            })
+    }
+</script>
+
+</html>
